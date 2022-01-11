@@ -71,7 +71,7 @@
                                                 <font style="vertical-align: inherit;">Categoria</font></font></h5>
                                         </div>
                                         <div class="col-10">
-                                            {{-- <a class="btn btn-warning" href="{{route('posts.category', $post->category);}}">{{ $post->category->name }}</a> --}}
+                                            <a class="btn btn-warning" href="{{route('posts.category', $post->category);}}">{{ $post->category->name }}</a>
                                         </div>
                                     </div>
                                 </div>

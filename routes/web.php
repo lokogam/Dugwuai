@@ -20,10 +20,6 @@ Route::group(['middleware'=>'auth:sanctum', 'verified'],function () {
 
     Route::resource('rol',RolController::class);
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
     Route::get('/perfil', function () {
     return view('perfil.index');
     })->name('perfil');
@@ -34,6 +30,9 @@ Route::group(['middleware'=>'auth:sanctum', 'verified'],function () {
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
     Route::get('category/{category}', [PostController::class, 'category'])->name('posts.category');
     Route::get('tag/{tag}', [PostController::class, 'tag'])->name('posts.tag');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });
 
 
