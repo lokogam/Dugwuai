@@ -329,7 +329,7 @@
 								<span class="text-dark">{{ Auth::user()->name }}</span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="{{url('perfil');}}""><i class=" align-middle me-1"
+								<a class="dropdown-item" href="{{url('usuario/show');}}""><i class=" align-middle me-1"
 									data-feather="user"></i> Profile</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{{url('profile');}}"><i class="align-middle me-1"

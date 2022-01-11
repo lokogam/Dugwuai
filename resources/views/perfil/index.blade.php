@@ -88,73 +88,38 @@
             <div class="col-md-8 col-xl-9">
                 <div class="card">
                     <div class="card-header">
-
                         <h5 class="card-title mb-0">Activities</h5>
                     </div>
                     <div class="card-body h-100">
 
                         <div class="mb-3">
-                            <h1 class="h3 d-inline align-middle">Cards</h1>
+                            <h1 class="h3 d-inline align-middle">Post</h1>
                         </div>
+
                         <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="card">
-                                    <img class="card-img-top" src="http://localhost/duvan/adminkit-3-1-0/static/img/photos/unsplash-1.jpg" alt="Unsplash">
-                                    <div class="card-header">
-                                        <h5 class="card-title mb-0">Card with image and links</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's content.</p>
-                                        <a href="#" class="card-link">Card link</a>
-                                        <a href="#" class="card-link">Another link</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-md-6">
-                                <div class="card">
-                                    <img class="card-img-top" src="http://localhost/duvan/adminkit-3-1-0/static/img/photos/unsplash-1.jpg" alt="Unsplash">
-                                    <div class="card-header">
-                                        <h5 class="card-title mb-0">Card with image and button</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                            @foreach ($posts as $post)
+                                <div class="col-12 col-md-6">
+                                    <div class="card">
+                                        <img class="card-img-top" 
+                                            src="{{asset('/storage/'.$post->image->url)}}"
+                                            width="60" height="60" alt="Unsplash">
+                                        <div class="card-header">
+                                            <h5 class="card-title mb-0">{{ $post->name }}</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">{{ $post->extract }}</p>
+                                            <div class="border  text-muted p-2 mt-1">
+                                                {{ $post->body }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-12 col-md-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h5 class="card-title mb-0">Card with links</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's content.</p>
-                                        <a href="#" class="card-link">Card link</a>
-                                        <a href="#" class="card-link">Another link</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-md-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h5 class="card-title mb-0">Card with button</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
 
-
+                    </div>
+                    <div class="card-footer" >                             
+                        {{ $posts->links()}}
                     </div>
                 </div>
             </div>

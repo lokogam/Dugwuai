@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -83,7 +84,13 @@ class UsuarioController extends Controller
     {
         $user = auth()->user();
         $roles = Role::all()->pluck('name','id');
-        return view('perfil.index',compact('user','roles'));
+        
+        $posts = Post::where('user_id', $user->id)   
+                            ->where('status',2)
+                            ->latest('id')
+                            ->paginate(2);
+        return view('perfil.index',compact('user','roles','posts'));
+        // return response()->json($posts);
     }
 
 
@@ -94,6 +101,7 @@ class UsuarioController extends Controller
         $user->load('roles');
         $ruta = request()->routeIs('usuario.create');
         return view('usuario.edit',compact('user','roles','ruta'));
+        
     }
 
 

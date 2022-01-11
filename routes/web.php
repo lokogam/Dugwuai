@@ -19,11 +19,6 @@ Route::group(['middleware'=>'auth:sanctum', 'verified'],function () {
     Route::resource('usuario',UsuarioController::class);
 
     Route::resource('rol',RolController::class);
-
-    Route::get('/perfil', function () {
-    return view('perfil.index');
-    })->name('perfil');
-
     Route::resource('/profile',cambiaPasswordController::class);
 
     Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
@@ -33,6 +28,10 @@ Route::group(['middleware'=>'auth:sanctum', 'verified'],function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/perfil', function () {
+        return view('perfil.index');
+        })->name('perfil.index');
 });
 
 
