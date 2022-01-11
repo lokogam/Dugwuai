@@ -1,0 +1,33 @@
+
+
+php artisan serve
+// levata el servidor 
+
+php artisan migrate 
+//  carga todas las tablas en la base de tatos
+
+php artisan migrate:fresh --seed
+// refrenca las mig raciones y los seeders
+
+
+php artisan make:model odjeto -mcr
+//  crea la migracion del odjeto (database/migrations)
+//  crea el modelo del odgeto en (app/models)
+//  crea el controlador del odjeto en (app/http/controller) 
+//  ademas los recusos del odjeto en el comtrolador (index,create, storage, show,edit,update,delete)
+
+php artisan make:controller MonbreDeController
+//crea el controlador 
+
+
+php artisan route:list
+// lista todas las rutas 
+
+
+composer require maatwebsite/excel
+// instala la libreria de exel para exprotar a exel 
+php artisan make:export UsersExport --model=App\Models\User
+ // crea la carpeta export en APP  para el modelo user a exportar 
+
+composer require barryvdh/laravel-dompdf
+//instala libreria para exportar en pdf
