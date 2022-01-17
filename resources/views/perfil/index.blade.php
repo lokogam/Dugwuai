@@ -56,30 +56,24 @@
                                     href="#">Boston</a></li>
                         </ul>
                     </div>
+
                     <hr class="my-0" />
                     <div class="card-body">
                         <h5 class="h6 card-title">Elsewhere</h5>
                         <ul class="list-unstyled mb-0">
                             <li  class="mb-1 my-1" >
-                            <a class="btn btn-info btn-sm" href="#"><span data-feather="twitter"></span>
-                                Twitter</a>
-                            </li>
-                            <li class="mb-1 my-1" >
-                                <a class="btn btn-info btn-sm" href="#"><span data-feather="facebook"></span>
+                                <a class="btn btn-info btn-sm my-1" href="#"><span data-feather="twitter"></span>
+                                Twittezr</a>
+                                <a class="btn btn-info btn-sm my-1" href="#"><span data-feather="facebook"></span>
                                     Facebook</a>
-                            </li>
-                            <li class="mb-1 my-1" >
-                                <a class="btn btn-info btn-sm" href="#"><span data-feather="instagram"></span>
+                                <a class="btn btn-info btn-sm my-1" href="#"><span data-feather="instagram"></span>
                                     Instagram</a>
-                            </li>
-                            <li class="mb-1 my-1" >
-                                <a class="btn btn-info btn-sm" href="#"><span data-feather="linkedin"></span>
+                                <a class="btn btn-info btn-sm my-1" href="#"><span data-feather="linkedin"></span>
                                     LinkedIn</a>
                             </li>
-                            
-
                         </ul>
                     </div>
+                    
                 </div>
             </div>
 
