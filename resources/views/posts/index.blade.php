@@ -1,5 +1,6 @@
 @include('layouts.heder')
 
-index de posts
+@include('posts.nav')
+@include('posts.post')
 			
 @include('layouts.footer')

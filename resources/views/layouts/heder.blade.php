@@ -45,7 +45,8 @@
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="{{url('posts');}}">
-							<i class="align-middle" data-feather="codepen"></i> <span
+							<i class="align-middle" data-feather="codepen"></i> 
+							<span
 								class="align-middle">Inicio</span>
 						</a>
 					</li>

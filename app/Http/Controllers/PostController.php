@@ -5,20 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
-use FontLib\Table\Type\post as TypePost;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 
 {
 
     public function index(){
-        $posts = Post::where('status',2)->latest('id')->paginate(3);
         
-        $categories = Category::all();
-        $tags =  Tag::all();
-        return view('dashboard', compact('posts','categories','tags'));
-        // return view('dashboard',$posts);
+        $datos =[
+            
+            'posts' => Post::where('status',2)->latest('id')->paginate(3),
+            'categories' => Category::all(),
+            'tags' =>  Tag::all(),
+        ];
+        // return response()->json($datos);
+
+        return view('posts.index', $datos);
     }
 
     public function show(Post $post){
@@ -31,7 +33,7 @@ class PostController extends Controller
 
         $categories = Category::all();
         $tags =  Tag::all();
-        return view('posts.show', compact('post', 'similares','categories','tags'));
+        return view('posts.show', compact('categories', 'post', 'similares','tags'));
 
     }
 

@@ -7,9 +7,7 @@
 
         <div class="center">
 
-        @include('posts.nav')
-
-        @include('posts.post')
+        
         </div>
     </div>
 
