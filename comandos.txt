@@ -12,13 +12,16 @@ php artisan migrate:fresh --seed
 
 php artisan make:model odjeto -mcr
 //  crea la migracion del odjeto (database/migrations)
-//  crea el modelo del odgeto en (app/models)
+//  crea el modelo del odjeto en (app/models)
 //  crea el controlador del odjeto en (app/http/controller) 
-//  ademas los recusos del odjeto en el comtrolador (index,create, storage, show,edit,update,delete)
+//  ademas los recusos del odjeto en el controlador (index,create, storage, show,edit,update,delete)
 
 php artisan make:controller MonbreDeController
 //crea el controlador 
 
+php artisan make:seeder NombreSeeder 
+//  crea los seder de un modelo 
+php artisan migrate --seed
 
 php artisan route:list
 // lista todas las rutas 
