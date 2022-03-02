@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppiDeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\UsuarioExportController;
@@ -25,6 +26,9 @@ Route::group(['middleware'=>'auth:sanctum', 'verified'],function () {
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
     Route::get('category/{category}', [PostController::class, 'category'])->name('posts.category');
     Route::get('tag/{tag}', [PostController::class, 'tag'])->name('posts.tag');
+
+    Route::get('appi/', [AppiDeController::class, 'index'])->name('appi');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');

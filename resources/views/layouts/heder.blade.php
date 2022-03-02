@@ -82,6 +82,14 @@
 						</ul>
 					</li>
 
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="{{url('appi');}}">
+							<i class="align-middle" data-feather="codepen"></i> 
+							<span
+								class="align-middle">Api</span>
+						</a>
+					</li>
+
 					{{--
 					<li class="sidebar-header">
 						Tools & Components
