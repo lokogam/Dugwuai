@@ -27,7 +27,7 @@ Route::group(['middleware'=>'auth:sanctum', 'verified'],function () {
     Route::get('category/{category}', [PostController::class, 'category'])->name('posts.category');
     Route::get('tag/{tag}', [PostController::class, 'tag'])->name('posts.tag');
 
-    Route::get('appi/', [AppiDeController::class, 'index'])->name('appi');
+    Route::get('appi/', [AppiDeController::class, 'getContratacion'])->name('appi');
 
     Route::get('/dashboard', function () {
         return view('dashboard');
