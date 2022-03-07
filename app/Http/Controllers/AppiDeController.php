@@ -11,104 +11,58 @@ class AppiDeController extends Controller
     use WithPagination;
     protected $paginationTheme = 'booststrap';
 
-    public function index(Request $request)
+    public function index()
     {
-        $valIn  = $request->input('valI');
-        $url = 'https://www.datos.gov.co/resource/rpmr-utcd.json';
-        $jdatos = Http::get($url);
-        $japi= json_decode($jdatos);
-        
-        $valS = 2;
-        $numero = count($japi);
-
-        
-        if($request->input('paginate') && $request->input('paginate') == 2){
-            $valI = $valIn;
-            $paginacion = '?$limit='.$valS.'&$offset='.$valI.'&$order=nit_de_la_entidad';
-            $datos = Http::get($url.$paginacion);
-            $api= json_decode($datos);
-            return view('rol/api/table',compact('api','valI', 'valS') );
-
-        }else if($request->input('paginate') && $request->input('paginate') == 1){
-            $valI =$valIn;
-            $paginacion = '?$limit='.$valS.'&$offset='.$valI.'&$order=nit_de_la_entidad';
-            $datos = Http::get($url.$paginacion);
-            $api= json_decode($datos);
-            return view('rol/api/table',compact('api','valI', 'valS') );
-
-        }else{
-            $valI =0;
-            $paginacion = '?$limit='.$valS.'&$offset='.$valI.'&$order=nit_de_la_entidad';
-            $datos = Http::get($url.$paginacion);
-            $api= json_decode($datos);
-
-            return view('rol/api/index',compact('api','valI', 'valS', 'numero') );
-        }
-
-        // return response()->json($api);
+        return View('rol/api/index');
     }
 
 
 
-    public function getContratacion(Request $request)
-    {
-        $url = 'https://www.datos.gov.co/resource/rpmr-utcd.json?$$app_token=LtsohJslsewBjbllw3kep7R42';
-        $res = json_decode(file_get_contents($url));
-        // var_export ($res);
-        $indice = array_search("nivel_entidad",$res,"Territorial");
-        var_export ($indice);
+    // public function getContratacion(Request $request)
+    // {
+
+    //     $nivel_entidad   = $request->input('nivel_entidad');
+    //     $source   = $request->input('source');
+    //     $pagina =$request->input('pag');
+
+    //     $filtros = "";
         
-        exit();
+    //     if (isset($source) && !empty($source)) {
+    //         $filtros .= "&source=" . $source;
+    //     }
 
-        $nivel_entidad   = $request->input('nivel_entidad');
-        $source   = $request->input('source');
-        $pagina =$request->input('pag');
+    //     if (isset($nivel_entidad) && !empty($nivel_entidad)) {
+    //         $filtros .= "&nivel_entidad=" . $nivel_entidad;
+    //         // $filtros .= "&estado_del_proceso=Activo";
+    //     }   
 
-        $filtros = "";
+    //     $paginacion = '&$limit=100&$offset=' . $pagina . '&$order=nit_de_la_entidad';
+
+    //     if ($request->input('filtro') ||$request->input('pag')) {
+    //         $paginacion = '&$limit=100&$offset=' . $pagina . '&$order=nit_de_la_entidad';  
+    //     }        
+
+    //     $selp = '&$select=count(nit_de_la_entidad)';
+    //     $url = 'https://www.datos.gov.co/resource/rpmr-utcd.json?$$app_token=LtsohJslsewBjbllw3kep7R42';
+
+    //     // $url_cont = 'https://www.datos.gov.co/resource/rpmr-utcd.json?$$app_token=LtsohJslsewBjbllw3kep7R42';
+
+    //     $contador = json_decode(file_get_contents($url . $filtros .$selp));
         
-        if (isset($source) && !empty($source)) {
-            $filtros .= "&source=" . $source;
-        }
-
-        if (isset($nivel_entidad) && !empty($nivel_entidad)) {
-            $filtros .= "&nivel_entidad=" . $nivel_entidad;
-            // $filtros .= "&estado_del_proceso=Activo";
-        }   
-
-        $paginacion = '&$limit=100&$offset=' . $pagina . '&$order=nit_de_la_entidad';
-
-        if ($request->input('filtro') ||$request->input('pag')) {
-            $paginacion = '&$limit=100&$offset=' . $pagina . '&$order=nit_de_la_entidad';  
-        }        
-
-        $selp = '&$select=count(nit_de_la_entidad)';
-        $url = 'https://www.datos.gov.co/resource/rpmr-utcd.json?$$app_token=LtsohJslsewBjbllw3kep7R42';
-
-        // $url_cont = 'https://www.datos.gov.co/resource/rpmr-utcd.json?$$app_token=LtsohJslsewBjbllw3kep7R42';
-
-        $contador = json_decode(file_get_contents($url . $filtros .$selp));
-        
-        $res = json_decode(file_get_contents($url . $filtros . $paginacion));
+    //     $res = json_decode(file_get_contents($url . $filtros . $paginacion));
 
 
-        if ($request->input('filtro') ||$request->input('pag')) {
-            return View('rol/api/table')
-                ->with('datos', $res)
-                ->with('contador', $contador);
-                // ->with('content', 'container')
-                // ->with('container', 'dashboard.continuada.contratacion')
-                // ->with('menu_activo', 'Educacion Continuada')
-                // ->with('submenu_activo', 'Contratacion');
-        }
+    //     if ($request->input('filtro') ||$request->input('pag')) {
+    //         return View('rol/api/table')
+    //             ->with('datos', $res)
+    //             ->with('contador', $contador);
+    //     }
 
-        return View('rol/api/index')
-            ->with('datos', $res)
-            ->with('contador', $contador);
-            // ->with('content', 'container')
-            // ->with('container', 'dashboard.continuada.contratacion')
-            // ->with('menu_activo', 'Educacion Continuada')
-            // ->with('submenu_activo', 'Contratación');
-    }
+    //     return View('rol/api/index');
+    //         ->with('datos', $res)
+    //         ->with('contador', $contador);
+
+    // }
 }
 
 // print_r($api);

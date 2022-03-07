@@ -9,29 +9,32 @@
                         <div class="align-content-md-center">
                             <div class="card flex-fill">
                                 <div class="card-header">
-                                    <h5 class="card-title mb-0">Api</h5>
+
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Filtro Nivel Entidad</label>
-                                                <select class="select2 form-control" id="nivel_entidad" onchange="tabla()">
+                                                <select class="select2 form-control" id="nivel_entidad"
+                                                    onchange="tabla()">
                                                     <option value=""></option>
                                                     <option>Territorial</option>
                                                     <option>Nacional</option>
                                                 </select>
                                             </div>
                                         </div>
-                                
+
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Palabra clave</label>
-                                                <input type="text" class="select2 form-control" id="source" onchange="tabla()">
+                                                <input type="text" class="select2 form-control" id="source"
+                                                    onchange="tabla()">
                                             </div>
                                         </div>
 
                                         <div class="col-md-3">
                                             <div class="form-group"><br>
-                                                <input type='button' class="btn btn-info" onclick="reiniciarFiltros()" value="Reiniciar Filtros">
+                                                <input type='button' class="btn btn-info" onclick="reiniciarFiltros()"
+                                                    value="Reiniciar Filtros">
                                             </div>
                                         </div>
                                     </div>
@@ -41,11 +44,11 @@
                                 </div>
                                 <div class="card-footer">
                                     <input type="hidden" value="100" id="pagination">
-                                    
+
                                     <button class="btn btn-secondary" onclick="pagination(1)"
                                         id="btnA">Anterior</button>
                                     <button class="btn btn-secondary" onclick="pagination(2)"
-                                        id="btnS">Siguiente</button> 
+                                        id="btnS">Siguiente</button>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +58,65 @@
         </div>
 </main>
 <script>
-        window.onload = noAnte;
+    // window.onload = noAnte;
+    window.onload = mostarDatos;
+
+function mostarDatos(){
+    $.ajax({
+        url: "https://www.datos.gov.co/resource/rpmr-utcd.json",
+        type: "GET",
+        data: {
+            "$limit" : 5,
+            "$$app_token" : "LtsohJslsewBjbllw3kep7R42"
+        }
+    })
+    .done(function(data) {
+        console.log(data);
+        console.log(Object.keys(data));
+            var i;
+            var html = "";
+            for(i=0; i<data.length; i++){
+                html += '<tr>' +
+                    '<td>' + i + '</td>' +
+                    '<td>' + data[i].nivel_entidad  + '</td>' +
+                    '<td>' + data[i].nombre_de_la_entidad+ '</td>' +
+                    '<td>' + data[i].nit_de_la_entidad  + '</td>' +
+                    '<td>' + data[i].estado_del_proceso + '</td>' +
+                    '<td>' + data[i].modalidad_de_contrataci_n + '</td>' +
+                    '<td>' + data[i].objeto_a_contratar + '</td>' +
+                    '<td>' + data[i].tipo_de_contrato + '</td>' +
+                    '<td>' + data[i].fecha_de_firma_del_contrato+ '</td>' +
+                    '<td>' + data[i].numero_del_contrato + '</td>' +
+                    '<td>' + data[i].numero_de_proceso  + '</td>' +
+                    '<td>' + data[i].valor_contrato  + '</td>' +
+                    '<td>' + data[i].nom_raz_social_contratista + '</td>' +
+                    '<td>' + data[i].url_contrato + '</td>' +
+                    '</tr>';
+            }
+                $('#tabla_registros_api').html(html);
+        });
+            cont();
+    
+}
+
+function cont(){
+    $.ajax({
+        url: "https://www.datos.gov.co/resource/rpmr-utcd.json?",
+        type: "GET",
+        data: {
+            "$select" : "count(nit_de_la_entidad)",
+            // "$limit" : ,
+            "$$app_token" : "LtsohJslsewBjbllw3kep7R42"
+        }
+    })
+    .done(function(data){
+        var html = "";
+        html +=  data[0].count_nit_de_la_entidad;
+        $('#cont').html(html);
+        // console.log(data);
+    });
+
+}
 
 function noAnte() {
     if (document.getElementById('pagination').value <= 100) {
@@ -167,5 +228,7 @@ function reiniciarFiltros() {
         }
     });
 }
+
 </script>
+
 @include('layouts.footer')
