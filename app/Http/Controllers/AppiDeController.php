@@ -72,3 +72,9 @@ class AppiDeController extends Controller
 
 // clave secreta
 // 2bbrz359rc7t0y394en1ruviaviu83a8mv0o3ssgjw2fl6361v
+
+// var filtro = [
+//     if (nivel_entidad != "") {
+//         "nivel_entidad" : nivel_entidad,
+//     },
+// ]

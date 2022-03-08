@@ -15,7 +15,7 @@
                                             <div class="form-group">
                                                 <label>Filtro Nivel Entidad</label>
                                                 <select class="select2 form-control" id="nivel_entidad"
-                                                    onchange="tabla()">
+                                                    onchange="filtrosE()">
                                                     <option value=""></option>
                                                     <option>Territorial</option>
                                                     <option>Nacional</option>
@@ -27,7 +27,7 @@
                                             <div class="form-group">
                                                 <label>Palabra clave</label>
                                                 <input type="text" class="select2 form-control" id="source"
-                                                    onchange="tabla()">
+                                                    onchange="filtrosE()">
                                             </div>
                                         </div>
 
@@ -58,45 +58,66 @@
         </div>
 </main>
 <script>
-    // window.onload = noAnte;
-    window.onload = mostarDatos;
+window.onload = filtrosE;
 
-function mostarDatos(){
+function filtrosE(){
+    // var pag = $("#pagination").val();
+    var nivel_entidad = $("#nivel_entidad").val();
+    var source = $("#source").val();
+    var filtrof = "";
+    var link = "https://www.datos.gov.co/resource/rpmr-utcd.json?";
+
+    if (nivel_entidad != "") {
+        filtrof += "&nivel_entidad=" + nivel_entidad;
+        link = "https://www.datos.gov.co/resource/rpmr-utcd.json?"+filtrof;
+        mostarDatos(link);
+    }
+    else{
+        link = "https://www.datos.gov.co/resource/rpmr-utcd.json?";
+        mostarDatos(link);
+    }
+}
+
+function mostarDatos(link){
+    // link = "https://www.datos.gov.co/resource/rpmr-utcd.json?";
+    var pag = $("#pagination").val();
     $.ajax({
-        url: "https://www.datos.gov.co/resource/rpmr-utcd.json",
+        url: link,
         type: "GET",
         data: {
-            "$limit" : 5,
-            "$$app_token" : "LtsohJslsewBjbllw3kep7R42"
+            // filtrof,
+            "$limit" : 100,
+            "$offset" : pag,
+            "$$app_token" : "LtsohJslsewBjbllw3kep7R42",
         }
     })
     .done(function(data) {
-        console.log(data);
-        console.log(Object.keys(data));
-            var i;
-            var html = "";
-            for(i=0; i<data.length; i++){
-                html += '<tr>' +
-                    '<td>' + i + '</td>' +
-                    '<td>' + data[i].nivel_entidad  + '</td>' +
-                    '<td>' + data[i].nombre_de_la_entidad+ '</td>' +
-                    '<td>' + data[i].nit_de_la_entidad  + '</td>' +
-                    '<td>' + data[i].estado_del_proceso + '</td>' +
-                    '<td>' + data[i].modalidad_de_contrataci_n + '</td>' +
-                    '<td>' + data[i].objeto_a_contratar + '</td>' +
-                    '<td>' + data[i].tipo_de_contrato + '</td>' +
-                    '<td>' + data[i].fecha_de_firma_del_contrato+ '</td>' +
-                    '<td>' + data[i].numero_del_contrato + '</td>' +
-                    '<td>' + data[i].numero_de_proceso  + '</td>' +
-                    '<td>' + data[i].valor_contrato  + '</td>' +
-                    '<td>' + data[i].nom_raz_social_contratista + '</td>' +
-                    '<td>' + data[i].url_contrato + '</td>' +
-                    '</tr>';
-            }
-                $('#tabla_registros_api').html(html);
-        });
-            cont();
-    
+    // console.log(data);
+    // console.log(Object.keys(data));
+        var i;
+        var html = "";
+        for(i=0; i<data.length; i++){
+            html += '<tr>' +
+                // '<td>' + i + '</td>' +
+                '<td>' + data[i].nivel_entidad  + '</td>' +
+                '<td>' + data[i].nombre_de_la_entidad+ '</td>' +
+                '<td>' + data[i].nit_de_la_entidad  + '</td>' +
+                '<td>' + data[i].estado_del_proceso + '</td>' +
+                '<td>' + data[i].modalidad_de_contrataci_n + '</td>' +
+                '<td>' + data[i].objeto_a_contratar + '</td>' +
+                '<td>' + data[i].tipo_de_contrato + '</td>' +
+                '<td>' + data[i].fecha_de_firma_del_contrato+ '</td>' +
+                '<td>' + data[i].numero_del_contrato + '</td>' +
+                '<td>' + data[i].numero_de_proceso  + '</td>' +
+                '<td>' + data[i].valor_contrato  + '</td>' +
+                '<td>' + data[i].nom_raz_social_contratista + '</td>' +
+                '<td>' + data[i].url_contrato + '</td>' +
+                '</tr>';
+        }
+            $('#tabla_registros_api').html(html);
+    });
+        cont();
+        noAnte();
 }
 
 function cont(){
@@ -105,17 +126,15 @@ function cont(){
         type: "GET",
         data: {
             "$select" : "count(nit_de_la_entidad)",
-            // "$limit" : ,
             "$$app_token" : "LtsohJslsewBjbllw3kep7R42"
         }
     })
     .done(function(data){
-        var html = "";
-        html +=  data[0].count_nit_de_la_entidad;
-        $('#cont').html(html);
+        var html1 = "";
+        html1 +=  data[0].count_nit_de_la_entidad;
+        $('#cont').html(html1);
         // console.log(data);
     });
-
 }
 
 function noAnte() {
@@ -129,104 +148,23 @@ function noAnte() {
 function pagination(direc) {
     var pag = $("#pagination").val();
 
-    var nivel_entidad = $("#nivel_entidad").val();
-    var source = $("#source").val();
-
-    var fecha_desde = $("#fecha_desde").val();
-    // var fecha_hasta = $("#fecha_hasta").val();
-
     if(direc == 1){
         var pag = $("#pagination").val(pag-100);
     }else if(direc == 2){
         var pag = $("#pagination").val(parseInt(pag,10)+100);
     }
-
-    var parametros = {
-        "pag": pag.val(),
-        "nivel_entidad": nivel_entidad,
-        "source": source,
-        "fecha_desde": fecha_desde,
-        // "fecha_hasta": fecha_hasta,
-        "filtro": 1
-    };
-
-    $.ajax({
-        data: parametros,
-        url: "appi",
-        type: 'get',
-
-        success: function(response) {
-            $("#div-tabla").html(response);
-        }
-    });
-
+    filtrosE();
     noAnte();
 }
-
-function tabla() {
-    var pag = $("#pagination").val();
-
-    var nivel_entidad = $("#nivel_entidad").val();
-    var source = $("#source").val();
-    
-
-    var fecha_desde = $("#fecha_desde").val();
-    // var fecha_hasta = $("#fecha_hasta").val();
-
-    // if (fecha_desde != "") {
-    //     if (fecha_hasta == "") {
-    //         $('#fecha_hasta').focus();
-    //         return;
-    //     }
-    // }
-
-    // if (fecha_hasta != "") {
-    //     if (fecha_desde == "") {
-    //         $('#fecha_desde').focus();
-    //         return;
-    //     }
-    // }
-
-    var parametros = {
-        "pag": pag,
-        "nivel_entidad": nivel_entidad,
-        "source": source,
-        "fecha_desde": fecha_desde,
-        // "fecha_hasta": fecha_hasta,
-        "filtro": 1
-    };
-
-    $.ajax({
-        data: parametros,
-        url: "appi",
-        type: 'get',
-
-        success: function(response) {
-            $("#div-tabla").html(response);
-        }
-    });
-}
-
 function reiniciarFiltros() {
     var nivel_entidad = $("#nivel_entidad").val('');
     var source = $("#source").val('');
-    
-
     var parametros = {
         "nivel_entidad" : '',            
         "source" : '',            
         "filtro": 1
     };
-
-    $.ajax({
-        data: parametros,
-        url: "appi",
-        type: 'get',
-
-        success: function(response) {
-            $("#div-tabla").html(response);
-        }
-    });
+    filtrosE();
 }
 
 </script>
