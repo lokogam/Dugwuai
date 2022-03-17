@@ -19,6 +19,9 @@
                                                     <option value=""></option>
                                                     <option>Territorial</option>
                                                     <option>Nacional</option>
+                                                    <option>TERRITORIAL</option>
+                                                    <option>NACIONAL</option>
+                                                    <option>No Definido</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -69,17 +72,17 @@ function filtrosE(){
 
     if (nivel_entidad != "") {
         filtrof += "&nivel_entidad=" + nivel_entidad;
-        link = "https://www.datos.gov.co/resource/rpmr-utcd.json?"+filtrof;
+        link += filtrof;
         mostarDatos(link);
+        cont(link);
     }
     else{
-        link = "https://www.datos.gov.co/resource/rpmr-utcd.json?";
         mostarDatos(link);
+        cont(link);
     }
 }
 
 function mostarDatos(link){
-    // link = "https://www.datos.gov.co/resource/rpmr-utcd.json?";
     var pag = $("#pagination").val();
     $.ajax({
         url: link,
@@ -88,6 +91,7 @@ function mostarDatos(link){
             // filtrof,
             "$limit" : 100,
             "$offset" : pag,
+            // "$where" : "Activo",
             "$$app_token" : "LtsohJslsewBjbllw3kep7R42",
         }
     })
@@ -116,13 +120,13 @@ function mostarDatos(link){
         }
             $('#tabla_registros_api').html(html);
     });
-        cont();
+        
         noAnte();
 }
 
-function cont(){
+function cont(link){
     $.ajax({
-        url: "https://www.datos.gov.co/resource/rpmr-utcd.json?",
+        url: link,
         type: "GET",
         data: {
             "$select" : "count(nit_de_la_entidad)",
