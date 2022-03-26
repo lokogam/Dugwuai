@@ -20,11 +20,11 @@ class DatabaseSeeder extends Seeder
         Storage::makeDirectory('public/posts');// crea una carpeta en estorage conel nombre posts
 
         // \App\Models\User::factory(10)->create();
-        $this->call(RolSeeder::class);
         $this->call(UserSeeder::class);
         Category::factory(3)->Create();
         Tag::factory(4)->create();
         $this->call(PostSeeder::class);
+        $this->call(RolSeeder::class);
 
         
     }
